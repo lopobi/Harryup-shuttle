@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+</head>
+<body>
+<title>Harry Up Shuttle Contracts</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: navy brand band on top, one centred contract "sheet" per page, yellow rules between parts, navy footer strip — mirrors the paper contracts. */
+:root{
+  --navy:#0d1440; --orange:#ff5a1f; --yellow:#ffcf1f; --red:#c62828;
+  --bg:#e9ebf2; --sheet:#ffffff; --ink:#0d1440; --text:#1d2233; --muted:#5d6380; --line:#cfd3e0; --field:#f6f7fb;
+  --ok:#1f7a4d; --bad:#c62828;
+  --display:"Archivo",Arial,Helvetica,sans-serif; --body:"Archivo",Arial,Helvetica,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#070b22; --sheet:#111838; --ink:#e8ebf7; --text:#d5d9ea; --muted:#9aa1c0; --line:#2a3360; --field:#0b1130;
+  --red:#ff7a6b; --ok:#5cc792; --bad:#ff7a6b; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#070b22; --sheet:#111838; --ink:#e8ebf7; --text:#d5d9ea; --muted:#9aa1c0; --line:#2a3360; --field:#0b1130;
+  --red:#ff7a6b; --ok:#5cc792; --bad:#ff7a6b; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:15px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--navy)}
+.inner{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+
+/* brand band */
+.brand{background:var(--navy);color:#fff;margin-top:calc(-1 * env(safe-area-inset-top,0px));padding-top:env(safe-area-inset-top,0px)}
+.brand .inner{padding-block:26px 0;display:grid;gap:4px}
+.logo{font-family:var(--display);font-weight:900;font-size:clamp(30px,7vw,52px);line-height:1;letter-spacing:.01em;margin:0}
+.logo .a{color:var(--orange)}.logo .b{color:var(--yellow);margin-left:.35em}
+.tag{font-size:clamp(14px,2.4vw,18px);letter-spacing:.04em;margin-top:8px}
+.motto{font-size:12px;letter-spacing:.08em;color:var(--yellow)}
+nav{display:flex;gap:4px;flex-wrap:wrap;margin-top:18px}
+nav a{color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:10px 16px;border-radius:8px 8px 0 0;opacity:.7;letter-spacing:.02em}
+nav a:hover{opacity:1}
+nav a[aria-current="page"]{opacity:1;background:var(--bg);color:var(--ink)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+
+main .inner{padding-block:24px 40px}
+.sheet{background:var(--sheet);border:1px solid var(--line);border-radius:6px;padding:clamp(18px,4vw,40px);display:grid;gap:22px}
+h1{font-family:var(--display);font-weight:800;color:var(--ink);font-size:clamp(20px,3.6vw,28px);line-height:1.2;margin:0;text-transform:uppercase;text-wrap:balance;padding-bottom:14px;border-bottom:4px solid var(--yellow)}
+h2{font-family:var(--display);font-weight:800;color:var(--red);font-size:18px;text-transform:uppercase;margin:0 0 4px;letter-spacing:.01em}
+.sub{font-weight:800;color:var(--ink);font-size:15px;margin:0 0 8px}
+.rule{border:0;border-top:4px solid var(--yellow);margin:4px 0}
+.clause p{margin:0 0 6px;max-width:72ch}
+.clause ol{margin:4px 0 0;padding-left:0;list-style:none;display:grid;gap:4px}
+
+.top{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:24px;align-items:start}
+@media (max-width:700px){.top{grid-template-columns:1fr}}
+.fields{display:grid;gap:10px}
+.f{display:grid;grid-template-columns:150px minmax(0,1fr);align-items:center;gap:10px}
+.f>span{font-weight:700;color:var(--ink);font-size:15px}
+@media (max-width:480px){.f{grid-template-columns:1fr;gap:4px}}
+input[type=text],input[type=tel],input[type=date],input[type=number],textarea{
+  font:inherit;font-weight:500;color:var(--text);background:var(--field);border:0;border-bottom:1.5px solid var(--muted);border-radius:4px 4px 0 0;padding:8px 10px;width:100%;min-width:0}
+input:focus{border-bottom-color:var(--orange)}
+.luggage{border:2.5px solid var(--navy);border-top:4px solid var(--yellow);padding:14px 16px;display:grid;gap:8px}
+:root[data-theme="dark"] .luggage{border-color:var(--line);border-top-color:var(--yellow)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .luggage{border-color:var(--line);border-top-color:var(--yellow)}}
+.luggage h2{font-size:16px}
+.lug{display:grid;grid-template-columns:18px minmax(0,1fr) 46px 64px;gap:8px;align-items:center;font-size:14px}
+.lug b{font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums}
+.lug label{color:var(--muted);text-align:right}
+.lug input[type=number]{padding:6px 6px;text-align:center}
+
+.check{display:flex;gap:10px;align-items:flex-start;font-weight:600;color:var(--ink)}
+.check input{margin-top:3px;width:19px;height:19px;accent-color:var(--orange);flex:none}
+.signs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.sig{display:grid;gap:6px;min-width:0}
+.sig .lbl{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-weight:600;color:var(--ink)}
+.sig .lbl small{font-weight:400;color:var(--muted)}
+.sig-pad{position:relative;border:1.5px dashed var(--muted);border-radius:6px;background:var(--field);height:150px;touch-action:none}
+.sig-pad canvas{width:100%;height:100%;display:block;cursor:crosshair}
+.sig-pad .baseline{position:absolute;left:18px;right:18px;bottom:34px;border-top:1px solid var(--muted);opacity:.6;pointer-events:none}
+.sig-pad .x{position:absolute;left:18px;bottom:38px;color:var(--muted);pointer-events:none;font-size:13px}
+.sig-row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.sig-row .dt{font-family:var(--mono);font-size:12px}
+
+button{font:inherit;font-weight:700;cursor:pointer;border-radius:6px;border:1px solid var(--line);background:var(--sheet);color:var(--ink);padding:9px 14px}
+button.primary{background:var(--orange);border-color:var(--orange);color:#fff;padding:13px 24px;font-size:15px;letter-spacing:.03em;text-transform:uppercase;font-weight:800}
+button.link{border:0;background:none;padding:0;color:var(--ink);text-decoration:underline;font-weight:600;font-size:13px}
+button.danger{color:var(--bad)}
+button[disabled]{opacity:.55;cursor:not-allowed}
+.actions{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.msg{font-size:14px;font-weight:700}.msg.err{color:var(--bad)}.msg.ok{color:var(--ok)}
+.done{display:grid;gap:10px}
+.done h2{color:var(--ok)}
+.stamp{font-family:var(--mono);font-size:13px;color:var(--muted)}
+
+.foot{background:var(--navy);color:var(--yellow);font-weight:800;font-size:13px;letter-spacing:.04em;padding:16px 20px;border-radius:4px;margin-top:20px;text-transform:uppercase;text-wrap:balance}
+
+/* admin */
+.notice{border:1px solid var(--line);background:var(--field);border-radius:6px;padding:16px 18px;color:var(--muted)}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.tabs button[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.count{font-family:var(--mono);font-size:12px;opacity:.85;margin-left:4px}
+.search{margin-left:auto;flex:1 1 200px;max-width:280px;border:1px solid var(--line)!important;border-radius:6px!important}
+.list{display:grid;gap:10px}
+.row{background:var(--sheet);border:1px solid var(--line);border-radius:6px}
+.row summary{list-style:none;cursor:pointer;padding:14px 16px;display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:baseline}
+.row summary::-webkit-details-marker{display:none}
+.row .name{font-weight:800;color:var(--ink);min-width:0;overflow-wrap:anywhere}
+.row .when{font-family:var(--mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.row .meta{grid-column:1/-1;font-size:13px;color:var(--muted);overflow-wrap:anywhere;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.pill{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:99px;border:1px solid var(--line);background:var(--field);color:var(--muted)}
+.pill.ok{color:var(--ok);border-color:currentColor}.pill.wait{color:var(--orange);border-color:currentColor}
+.row .body{border-top:1px solid var(--line);padding:16px;display:grid;gap:16px}
+dl{margin:0;display:grid;grid-template-columns:minmax(130px,max-content) 1fr;gap:6px 16px;font-size:14px}
+dt{color:var(--muted)}dd{margin:0;min-width:0;overflow-wrap:anywhere;color:var(--text);font-weight:600}
+@media (max-width:480px){dl{grid-template-columns:1fr}dt{margin-top:6px}}
+.sigs{display:flex;gap:16px;flex-wrap:wrap}
+.sigs figure{margin:0;display:grid;gap:4px;font-size:12px;color:var(--muted)}
+.sigimg{background:#fff;border:1px solid var(--line);border-radius:4px;width:260px;max-width:100%}
+table.lt{border-collapse:collapse;font-size:14px}
+table.lt td{padding:3px 12px 3px 0;border-bottom:1px solid var(--line)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header class="brand"><div class="inner">
+  <p class="logo"><span class="a">HARRY UP</span><span class="b">SHUTTLE</span></p>
+  <div class="tag">GATE TO GATE SERVICES</div>
+  <div class="motto">SAFE - RELIABLE - ON TIME</div>
+  <nav aria-label="Pages">
+    <a href="#passenger" data-view="passenger">Passengers</a>
+    <a href="#driver" data-view="driver">Drivers</a>
+    <a href="#admin" data-view="admin">Admin</a>
+  </nav>
+</div></header>
+
+<main><div class="inner">
+
+<!-- PASSENGER -->
+<section id="v-passenger" hidden>
+  <form class="sheet" id="f-passenger" novalidate>
+    <h1>Passenger's Contract / Travel Agreement</h1>
+    <div class="top">
+      <div class="fields">
+        <label class="f"><span>Date:</span><input id="p-date" name="date" type="date" required></label>
+        <label class="f"><span>Passenger Name:</span><input id="p-name" name="fullName" type="text" autocomplete="name" required></label>
+        <label class="f"><span>ID Number:</span><input id="p-id" name="idNumber" type="text" inputmode="numeric" maxlength="20" required></label>
+        <label class="f"><span>Phone Number:</span><input id="p-phone" name="phone" type="tel" autocomplete="tel" required></label>
+        <label class="f"><span>Pickup Point:</span><input id="p-pickup" name="pickup" type="text" required></label>
+        <label class="f"><span>Drop-off Point:</span><input id="p-drop" name="dropoff" type="text" required></label>
+        <label class="f"><span>Route:</span><input id="p-route" name="route" type="text" placeholder="e.g. Pretoria – Polokwane" required></label>
+      </div>
+      <div class="luggage" id="luggage">
+        <h2>Luggage List</h2>
+      </div>
+    </div>
+
+    <div>
+      <p class="sub">Next of Kin:</p>
+      <div class="fields">
+        <label class="f"><span>Next of Kin Name:</span><input id="p-kname" name="kinName" type="text" required></label>
+        <label class="f"><span>Next of Kin Number:</span><input id="p-kphone" name="kinPhone" type="tel" required></label>
+        <label class="f"><span>Relationship:</span><input id="p-krel" name="kinRelationship" type="text" required></label>
+      </div>
+    </div>
+
+    <div class="clause"><h2>1. Purpose</h2><p>This contract is between Harry Up Shuttle and the Passenger for safe transport from pickup to drop-off.</p></div>
+    <div class="clause"><h2>2. Safety Rules</h2><p>e) Passengers are able and can report the driver for reckless driving, speeding, or unsafe driving to Harry Up Shuttle management.</p></div>
+    <div class="clause"><h2>3. Behaviour</h2><ol><li>a) Respect one another</li><li>b) Respect the driver</li><li>c) Respect each other as a person</li></ol></div>
+    <div class="clause"><h2>4. Luggage</h2><p>Passenger is responsible for his/her own luggage. Driver will check luggage list before departure.</p></div>
+    <div class="clause"><h2>5. Payment and Cancellation</h2><p>Payment must be made before departure. Cancellation must be two days before the trip. If cancellation is less than two days before the trip, payment is non-refundable.</p></div>
+
+    <hr class="rule">
+    <div class="clause"><h2>6. Declaration</h2><p>I, the Passenger, confirm I have read and understood this contract. I understand I can report the driver for reckless driving, speeding, or unsafe driving to Harry Up Shuttle management. I agree to respect the driver and fellow passengers.</p></div>
+    <label class="check"><input id="p-agree" name="agree" type="checkbox" required> I have read and agree to this contract.</label>
+
+    <div class="signs">
+      <div class="sig">
+        <div class="lbl">Passenger Signature</div>
+        <div class="sig-pad" data-pad="passenger"><span class="baseline"></span><span class="x">✕</span><canvas aria-label="Passenger signature pad"></canvas></div>
+        <div class="sig-row"><span class="dt" data-today></span><button type="button" class="link" data-clear="passenger">Clear</button></div>
+      </div>
+      <div class="sig">
+        <div class="lbl">Driver Signature <small>optional, at departure</small></div>
+        <div class="sig-pad" data-pad="passengerDriver"><span class="baseline"></span><span class="x">✕</span><canvas aria-label="Driver signature pad"></canvas></div>
+        <div class="sig-row"><span class="dt" data-today></span><button type="button" class="link" data-clear="passengerDriver">Clear</button></div>
+      </div>
+    </div>
+    <div class="actions"><button class="primary" type="submit">Sign and submit</button><span class="msg" role="status"></span></div>
+  </form>
+</section>
+
+<!-- DRIVER -->
+<section id="v-driver" hidden>
+  <form class="sheet" id="f-driver" novalidate>
+    <h1>Driver's Contract / Employment Agreement</h1>
+    <div class="fields" style="max-width:520px">
+      <label class="f"><span>Date:</span><input id="d-date" name="date" type="date" required></label>
+      <label class="f"><span>Driver Name:</span><input id="d-name" name="fullName" type="text" autocomplete="name" required></label>
+      <label class="f"><span>ID Number:</span><input id="d-id" name="idNumber" type="text" inputmode="numeric" maxlength="20" required></label>
+      <label class="f"><span>Address:</span><input id="d-addr" name="address" type="text" autocomplete="street-address" required></label>
+      <label class="f"><span>Phone Number:</span><input id="d-phone" name="phone" type="tel" autocomplete="tel" required></label>
+      <label class="f"><span>Vehicle Reg:</span><input id="d-reg" name="vehicleReg" type="text" placeholder="e.g. HJ 45 KL GP" required></label>
+    </div>
+
+    <div class="clause"><h2>1. Job Title</h2><p>The Driver is employed as a Shuttle Driver to transport passengers safely and professionally.</p></div>
+    <div class="clause"><h2>2. Main Duty - Safety of Passengers</h2><p>The Driver is FULLY RESPONSIBLE for the safety of ALL passengers at ALL times.</p>
+      <ol><li>a) Every passenger must arrive safely at his/her destination</li><li>b) Correct pickup and drop-off points must be followed</li><li>c) Passengers are safe during the whole trip - from pickup to drop-off</li><li>d) Drive carefully, obey road rules, do not speed</li><li>e) Do NOT drive under influence of alcohol or drugs</li><li>f) Check vehicle before every trip - brakes, tyres, lights, fuel, water, oil</li></ol></div>
+    <div class="clause"><h2>3. Responsibility</h2><p>Driver is responsible for accidents, fines, vehicle damage, delays and breakdowns caused by negligence.</p></div>
+    <div class="clause"><h2>4. Passenger Care</h2><p>Treat passengers with respect. Help elderly/children/disabled. Seatbelts on. No overload. No smoking/drinking/fighting.</p></div>
+    <div class="clause"><h2>5. Working Rules</h2><p>Be on time. Follow route and schedule. Report before/after trip. No unauthorised money collection.</p></div>
+    <div class="clause"><h2>6. Disciplinary Action</h2><p>Warning / Suspension / Fine / Immediate Termination for breaking this contract.</p></div>
+
+    <hr class="rule">
+    <div class="clause"><h2>7. Declaration</h2><p>I, the Driver, confirm I have read and understood this contract. I accept full responsibility for the safety of passengers and everything that happens during the trip. Safety of passengers is my number one priority.</p></div>
+    <label class="check"><input id="d-agree" name="agree" type="checkbox" required> I have read and agree to this contract.</label>
+
+    <div class="signs">
+      <div class="sig">
+        <div class="lbl">Driver Signature</div>
+        <div class="sig-pad" data-pad="driver"><span class="baseline"></span><span class="x">✕</span><canvas aria-label="Driver signature pad"></canvas></div>
+        <div class="sig-row"><span class="dt" data-today></span><button type="button" class="link" data-clear="driver">Clear</button></div>
+      </div>
+      <div class="sig">
+        <div class="lbl">Company Signature <small>signed by admin after review</small></div>
+        <div class="notice" style="height:150px;display:grid;place-items:center;text-align:center">Harry Up Shuttle management signs this part from the Admin page.</div>
+      </div>
+    </div>
+    <div class="actions"><button class="primary" type="submit">Sign and submit</button><span class="msg" role="status"></span></div>
+  </form>
+</section>
+
+<!-- ADMIN -->
+<section id="v-admin" hidden>
+  <div class="sheet">
+    <h1>Signed Contracts</h1>
+    <div id="admin-gate" class="notice">Checking your access…</div>
+    <div id="admin-body" hidden style="display:grid;gap:14px">
+      <div class="tabs">
+        <button type="button" aria-pressed="true" data-tab="passengers">Passengers <span class="count" id="n-passengers">0</span></button>
+        <button type="button" aria-pressed="false" data-tab="drivers">Drivers <span class="count" id="n-drivers">0</span></button>
+        <input class="search" id="q" type="text" placeholder="Search name, ID, phone, route…" aria-label="Search contracts">
+      </div>
+      <div id="list" class="list"></div>
+    </div>
+  </div>
+</section>
+
+<div class="foot">Harry Up Shuttle &nbsp;-&nbsp; Gate to Gate Services &nbsp;-&nbsp; We take you there safely</div>
+</div></main>
+
+<script>
+(() => {
+  const today = new Date();
+  const iso = d => d.toISOString().slice(0,10);
+  const local = new Date(today.getTime() - today.getTimezoneOffset()*60000);
+  document.querySelectorAll("input[type=date][name=date]").forEach(i => i.value = iso(local));
+  document.querySelectorAll("[data-today]").forEach(s => s.textContent = "Date: " + local.toISOString().slice(0,10));
+
+  // luggage rows
+  const lug = document.getElementById("luggage");
+  for (let i=1;i<=6;i++){
+    const r = document.createElement("div"); r.className = "lug";
+    r.innerHTML = `<b>${i}.</b><input id="p-lug${i}" name="lug${i}" type="text" aria-label="Luggage item ${i}"><label for="p-qty${i}">Qty</label><input id="p-qty${i}" name="qty${i}" type="number" min="0" max="99" aria-label="Quantity for item ${i}">`;
+    lug.appendChild(r);
+  }
+
+  // ---------- routing ----------
+  const views = ["passenger","driver","admin"];
+  function show(){
+    const h = location.hash.slice(1);
+    const v = views.includes(h) ? h : "passenger";
+    views.forEach(n => document.getElementById("v-"+n).hidden = n !== v);
+    document.querySelectorAll("nav a").forEach(a => { if(a.dataset.view===v) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); });
+    if (v === "admin") startAdmin();
+    requestAnimationFrame(() => pads.forEach(p => p.resize()));
+  }
+
+  // ---------- signature pads ----------
+  const pads = [];
+  function makePad(el){
+    const c = el.querySelector("canvas"), ctx = c.getContext("2d");
+    let drawing = false, dirty = false, last = null, strokes = [];
+    function style(){ ctx.lineWidth = 2.2; ctx.lineCap = "round"; ctx.lineJoin = "round"; ctx.strokeStyle = ctx.fillStyle = getComputedStyle(el).color || "#111"; }
+    function redraw(){ ctx.clearRect(0,0,c.width,c.height); style(); strokes.forEach(s => { ctx.beginPath(); s.forEach((p,i)=> i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y)); ctx.stroke(); }); }
+    function resize(){ const r = c.getBoundingClientRect(); if(!r.width) return; const d = window.devicePixelRatio||1; c.width=r.width*d; c.height=r.height*d; ctx.setTransform(d,0,0,d,0,0); redraw(); }
+    const pos = e => { const r = c.getBoundingClientRect(); return {x:e.clientX-r.left, y:e.clientY-r.top}; };
+    c.addEventListener("pointerdown", e => { if(!c.width) resize(); drawing = true; c.setPointerCapture(e.pointerId); last = pos(e); strokes.push([last]); style(); ctx.beginPath(); ctx.arc(last.x,last.y,1,0,7); ctx.fill(); dirty = true; });
+    c.addEventListener("pointermove", e => { if(!drawing) return; const p = pos(e); strokes[strokes.length-1].push(p); ctx.beginPath(); ctx.moveTo(last.x,last.y); ctx.lineTo(p.x,p.y); ctx.stroke(); last = p; });
+    const end = () => { drawing = false; };
+    c.addEventListener("pointerup", end); c.addEventListener("pointercancel", end);
+    const api = {
+      el, name: el.dataset.pad, resize, isEmpty: () => !dirty,
+      clear(){ strokes = []; dirty = false; redraw(); },
+      toDataURL(){ // dark ink on white so it reads in any theme
+        const r = c.getBoundingClientRect(), out = document.createElement("canvas");
+        out.width = Math.round(r.width); out.height = Math.round(r.height);
+        const o = out.getContext("2d"); o.fillStyle="#fff"; o.fillRect(0,0,out.width,out.height);
+        o.lineWidth=2.2; o.lineCap="round"; o.lineJoin="round"; o.strokeStyle="#0d1440";
+        strokes.forEach(s => { o.beginPath(); if(s.length===1){o.arc(s[0].x,s[0].y,1,0,7);o.fillStyle="#0d1440";o.fill();} s.forEach((p,i)=> i?o.lineTo(p.x,p.y):o.moveTo(p.x,p.y)); o.stroke(); });
+        return out.toDataURL("image/png");
+      }
+    };
+    pads.push(api); return api;
+  }
+  document.querySelectorAll("form .sig-pad").forEach(makePad);
+  const pad = n => pads.find(p => p.name === n);
+  document.querySelectorAll("[data-clear]").forEach(b => b.addEventListener("click", () => pad(b.dataset.clear).clear()));
+  window.addEventListener("resize", () => pads.forEach(p => p.resize()));
+
+  // ---------- capabilities ----------
+  let dbP = null, userP = null;
+  const getDb = () => dbP ??= (window.claude?.use ? window.claude.use("db") : Promise.resolve(null));
+  const getUser = () => userP ??= (window.claude?.use ? window.claude.use("user") : Promise.resolve(null));
+
+  // ---------- forms ----------
+  const COLL = { passenger: "passengers", driver: "drivers" };
+  function wire(kind){
+    const form = document.getElementById("f-"+kind), msg = form.querySelector(".msg"), btn = form.querySelector("button[type=submit]");
+    form.addEventListener("submit", async e => {
+      e.preventDefault();
+      msg.className = "msg"; msg.textContent = "";
+      const missing = [...form.elements].filter(el => el.required && (el.type==="checkbox" ? !el.checked : !el.value.trim()));
+      if (missing.length){ msg.className="msg err"; msg.textContent = "Please fill in every field and tick the agreement box."; missing[0].focus(); return; }
+      if (pad(kind).isEmpty()){ msg.className="msg err"; msg.textContent = "Please sign in the " + (kind==="passenger"?"Passenger":"Driver") + " Signature box."; return; }
+
+      const data = {};
+      for (const el of form.elements){
+        if(!el.name || /^(lug|qty)\d$/.test(el.name)) continue;
+        data[el.name] = el.type === "checkbox" ? el.checked : el.value.trim();
+      }
+      if (kind === "passenger"){
+        data.luggage = [];
+        for (let i=1;i<=6;i++){
+          const item = form.elements["lug"+i].value.trim(), qty = form.elements["qty"+i].value.trim();
+          if (item) data.luggage.push({ item, qty: qty ? Number(qty) : 1 });
+        }
+      }
+      btn.disabled = true; btn.textContent = "Submitting…";
+      try{
+        const [db, user] = await Promise.all([getDb(), getUser()]);
+        const uid = user ? await user.id() : null;
+        if (!db || !uid) throw {code:"no_access"};
+        const now = new Date().toISOString();
+        const record = { ...data, signature: pad(kind).toDataURL(), signedAt: now, submittedAt: now, submitter: uid, type: kind };
+        if (kind === "passenger" && !pad("passengerDriver").isEmpty()){ record.driverSignature = pad("passengerDriver").toDataURL(); record.driverSignedAt = now; }
+        await db.doc(COLL[kind] + "/" + uid).set(record);
+        form.replaceChildren();
+        const h = document.createElement("h1"); h.textContent = kind==="passenger" ? "Passenger's Contract / Travel Agreement" : "Driver's Contract / Employment Agreement";
+        const done = document.createElement("div"); done.className = "done";
+        done.innerHTML = '<h2>Contract signed and submitted</h2><p style="margin:0">Harry Up Shuttle management can now see your contract. If you submit again from this account, the new contract replaces this one.</p><div class="stamp"></div>';
+        done.querySelector(".stamp").textContent = "Signed by " + data.fullName + " · " + new Date(now).toLocaleString();
+        form.append(h, done);
+      }catch(err){
+        btn.disabled = false; btn.textContent = "Sign and submit";
+        msg.className = "msg err";
+        msg.textContent = err?.code === "no_access" ? "You need to be signed in to Claude with access to this page to submit."
+          : err?.code === "invalid_argument" ? "Your account can't submit on this page. Ask Harry Up Shuttle to give you Contributor access."
+          : "The contract couldn't be saved. Check your connection and try again.";
+      }
+    });
+  }
+  wire("passenger"); wire("driver");
+
+  // ---------- admin ----------
+  let adminStarted = false, tab = "passengers", db = null;
+  const rows = { passengers: [], drivers: [] };
+  const LABELS = {
+    passengers: [["date","Date"],["fullName","Passenger name"],["idNumber","ID number"],["phone","Phone"],["pickup","Pickup point"],["dropoff","Drop-off point"],["route","Route"],["kinName","Next of kin"],["kinPhone","Next of kin number"],["kinRelationship","Relationship"]],
+    drivers: [["date","Date"],["fullName","Driver name"],["idNumber","ID number"],["address","Address"],["phone","Phone"],["vehicleReg","Vehicle reg"]]
+  };
+  const fmt = s => { const d = new Date(s); return isNaN(d) ? "" : d.toLocaleDateString(undefined,{day:"2-digit",month:"short",year:"numeric"}) + " " + d.toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit"}); };
+  const fmtDay = s => { const d = new Date(s); return isNaN(d) ? "" : d.toLocaleDateString(undefined,{day:"2-digit",month:"short",year:"numeric"}); };
+
+  async function startAdmin(){
+    if (adminStarted) return; adminStarted = true;
+    const gate = document.getElementById("admin-gate"), body = document.getElementById("admin-body");
+    const [d, user] = await Promise.all([getDb(), getUser()]); db = d;
+    const canEdit = user ? await user.canEdit() : false;
+    if (!db || !canEdit){ gate.textContent = "Only Harry Up Shuttle admins can see signed contracts. If you're an admin, ask the owner to give you Editor access."; return; }
+    gate.textContent = "Loading contracts…";
+    const timer = setTimeout(() => { gate.hidden = false; gate.textContent = "Contracts can't be reached right now. They'll appear here once the connection is back."; }, 10000);
+    ["passengers","drivers"].forEach(c => {
+      db.collection(c).orderBy("submittedAt","desc").onSnapshot(snap => {
+        rows[c] = snap.docs.map(x => ({ id: x.id, ...x.data() }));
+        clearTimeout(timer); gate.hidden = true; body.hidden = false; render();
+      }, () => { clearTimeout(timer); gate.hidden = false; gate.textContent = "Contracts couldn't be loaded. Reload the page to try again."; });
+    });
+  }
+
+  function sigFig(src, caption){
+    const f = document.createElement("figure");
+    const img = document.createElement("img"); img.className = "sigimg"; img.alt = caption; img.src = src;
+    const cap = document.createElement("figcaption"); cap.textContent = caption;
+    f.append(img, cap); return f;
+  }
+  const okSig = s => typeof s === "string" && s.startsWith("data:image/png;base64,");
+
+  function render(){
+    document.getElementById("n-passengers").textContent = rows.passengers.length;
+    document.getElementById("n-drivers").textContent = rows.drivers.length;
+    const q = document.getElementById("q").value.trim().toLowerCase();
+    const list = document.getElementById("list");
+    const open = new Set([...list.querySelectorAll("details[open]")].map(d => d.dataset.id));
+    // keep a half-drawn company signature from being wiped by a live refresh
+    if (list.querySelector(".company-pad[data-busy='1']")) return;
+    list.replaceChildren();
+    const items = rows[tab].filter(r => !q || [r.fullName,r.idNumber,r.phone,r.route,r.vehicleReg,r.pickup,r.dropoff].some(v => String(v||"").toLowerCase().includes(q)));
+    if (!items.length){
+      const n = document.createElement("div"); n.className = "notice";
+      n.textContent = q ? "No contracts match that search." : (tab === "passengers" ? "No passenger contracts yet. They appear here as soon as someone signs on the Passengers page." : "No driver contracts yet. They appear here as soon as a driver signs on the Drivers page.");
+      list.appendChild(n); return;
+    }
+    for (const r of items){
+      const det = document.createElement("details"); det.className = "row"; det.dataset.id = r.id; if (open.has(r.id)) det.open = true;
+      const sum = document.createElement("summary");
+      const nm = document.createElement("span"); nm.className = "name"; nm.textContent = r.fullName || "Unnamed";
+      const wh = document.createElement("span"); wh.className = "when"; wh.textContent = fmt(r.submittedAt);
+      const meta = document.createElement("span"); meta.className = "meta";
+      const t = document.createElement("span");
+      t.textContent = tab === "passengers" ? [r.route, r.phone].filter(Boolean).join(" · ") : [r.vehicleReg, r.phone].filter(Boolean).join(" · ");
+      meta.appendChild(t);
+      if (tab === "drivers"){ const p = document.createElement("span"); p.className = "pill " + (okSig(r.companySignature)?"ok":"wait"); p.textContent = okSig(r.companySignature) ? "Countersigned" : "Needs company signature"; meta.appendChild(p); }
+      if (tab === "passengers" && Array.isArray(r.luggage) && r.luggage.length){ const p = document.createElement("span"); p.className = "pill"; p.textContent = r.luggage.reduce((a,l)=>a+(Number(l.qty)||0),0) + " luggage"; meta.appendChild(p); }
+      sum.append(nm, wh, meta); det.appendChild(sum);
+
+      const bd = document.createElement("div"); bd.className = "body";
+      const dl = document.createElement("dl");
+      for (const [k, label] of LABELS[tab]){
+        const v = r[k]; if (v === undefined || v === "") continue;
+        const dt = document.createElement("dt"); dt.textContent = label;
+        const dd = document.createElement("dd"); dd.textContent = String(v);
+        dl.append(dt, dd);
+      }
+      const dt = document.createElement("dt"); dt.textContent = "Agreed to contract";
+      const dd = document.createElement("dd"); dd.textContent = r.agree ? "Yes" : "No"; dl.append(dt, dd);
+      bd.appendChild(dl);
+
+      if (tab === "passengers" && Array.isArray(r.luggage) && r.luggage.length){
+        const lab = document.createElement("span"); lab.className = "pill"; lab.textContent = "Luggage list";
+        const tb = document.createElement("table"); tb.className = "lt";
+        r.luggage.forEach((l,i) => { const tr = tb.insertRow(); tr.insertCell().textContent = (i+1)+"."; tr.insertCell().textContent = l.item; tr.insertCell().textContent = "Qty " + l.qty; });
+        const wrap = document.createElement("div"); wrap.style.overflowX = "auto"; wrap.appendChild(tb);
+        bd.append(lab, wrap);
+      }
+
+      const sigs = document.createElement("div"); sigs.className = "sigs";
+      if (okSig(r.signature)) sigs.appendChild(sigFig(r.signature, (tab==="passengers"?"Passenger":"Driver") + " signature · " + fmtDay(r.signedAt)));
+      if (tab === "passengers" && okSig(r.driverSignature)) sigs.appendChild(sigFig(r.driverSignature, "Driver signature · " + fmtDay(r.driverSignedAt)));
+      if (tab === "drivers" && okSig(r.companySignature)) sigs.appendChild(sigFig(r.companySignature, "Company signature · " + fmtDay(r.companySignedAt)));
+      bd.appendChild(sigs);
+
+      if (tab === "drivers" && !okSig(r.companySignature)){
+        const box = document.createElement("div"); box.className = "sig"; box.style.maxWidth = "420px";
+        box.innerHTML = '<div class="lbl">Company Signature</div><div class="sig-pad company-pad" data-pad="co-'+r.id+'"><span class="baseline"></span><span class="x">✕</span><canvas aria-label="Company signature pad"></canvas></div><div class="sig-row"><button type="button" class="link" data-act="clear">Clear</button><button type="button" data-act="save">Save company signature</button></div>';
+        bd.appendChild(box);
+        const cp = makePad(box.querySelector(".sig-pad"));
+        box.querySelector("canvas").addEventListener("pointerdown", () => cp.el.dataset.busy = "1");
+        box.querySelector("[data-act=clear]").addEventListener("click", () => { cp.clear(); cp.el.dataset.busy = ""; });
+        const save = box.querySelector("[data-act=save]");
+        save.addEventListener("click", async () => {
+          if (cp.isEmpty()){ save.textContent = "Sign first"; setTimeout(()=>save.textContent="Save company signature",2000); return; }
+          save.disabled = true; save.textContent = "Saving…";
+          try { await db.doc("drivers/" + r.id).update({ companySignature: cp.toDataURL(), companySignedAt: new Date().toISOString() }); cp.el.dataset.busy = ""; render(); }
+          catch { save.disabled = false; save.textContent = "Couldn't save. Try again"; }
+        });
+        det.addEventListener("toggle", () => cp.resize());
+      }
+
+      const act = document.createElement("div"); act.className = "actions";
+      const del = document.createElement("button"); del.type = "button"; del.className = "danger"; del.textContent = "Delete contract";
+      del.addEventListener("click", async () => {
+        if (del.dataset.armed !== "1"){ del.dataset.armed = "1"; del.textContent = "Click again to delete"; setTimeout(()=>{ del.dataset.armed=""; del.textContent="Delete contract"; }, 4000); return; }
+        del.disabled = true; del.textContent = "Deleting…";
+        try { await db.doc(tab + "/" + r.id).delete(); } catch { del.disabled = false; del.textContent = "Couldn't delete. Try again"; }
+      });
+      act.appendChild(del); bd.appendChild(act);
+      det.appendChild(bd); list.appendChild(det);
+      if (det.open) requestAnimationFrame(() => pads.forEach(p => p.resize()));
+    }
+  }
+  document.querySelectorAll("[data-tab]").forEach(b => b.addEventListener("click", () => {
+    tab = b.dataset.tab;
+    document.querySelectorAll("[data-tab]").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+    render();
+  }));
+  document.getElementById("q").addEventListener("input", render);
+
+  window.addEventListener("hashchange", show);
+  show();
+})();
+</script>
+
+</body>
+</html>
